@@ -1,0 +1,23 @@
+{
+  "name": "tiku",
+  "version": "0.0.1",
+  "authors": [
+    "Scott"
+  ],
+  "description": "tiku",
+  "keywords": [
+    "tiku"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.1.0"
+  }
+}
