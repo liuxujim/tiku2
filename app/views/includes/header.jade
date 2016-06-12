@@ -1,0 +1,87 @@
+.container
+  .row
+    .page-header.clearfix
+      h1= title
+      .col-md-4
+        small Love Node.js
+
+.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header
+      a.navbar-brand(href="/") Powered by node.js
+    div.collapse.navbar-collapse
+      ul.nav.navbar-nav.clearfix
+        li.active
+          a(href='/') 首页
+            span.sr-only (current)
+        li.dropdown
+          a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false") 题库
+            span.caret
+          ul.dropdown-menu
+            li
+              a(href="/results?cat=5758ca0e27139754171cf52c&p=0") 初一
+            li.divider(role="separator")
+            li
+              a(href="/results?cat=575a66867d773f341a0732d9&p=0") 初二
+            li.divider(role="separator")
+            li
+              a(href="/results?cat=575a66957d773f341a0732da&p=0") 初三
+        - if (user && user.role >= 50)
+          li.dropdown
+            a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false") 管理
+              span.caret
+            ul.dropdown-menu
+              li
+                a(href="/admin/ti/new") 上传新题
+              li.divider(role="separator")
+              li
+                a(href="/admin/ti/list") 题库列表
+              li.divider(role="separator")
+              li
+                a(href="/admin/user/list") 用户列表
+
+        form.navbar-form.navbar-left(role="search" method='GET', action='/results')
+          .form-group
+            input.form-control(type='text', name='q', placeholder="Search")
+          button.btn.btn-default(type='submit') 搜索
+      if user
+        p.navbar-text.navbar-right
+          span 欢迎您,#{user.name}
+          span &nbsp;|&nbsp;
+          a.navbar-link(href="/logout") 登出
+      else
+        p.navbar-text.navbar-right
+          a.navbar-link(href="#", data-toggle="modal", data-target="#signupModal") 注册
+          span &nbsp;|&nbsp;
+          a.navbar-link(href="#", data-toggle="modal", data-target="#signinModal") 登录
+
+#signupModal.modal.fade
+  .modal-dialog
+    .modal-content
+      form(method="POST", action="/user/signup")
+        .modal-header 注册
+        .modal-body
+          .form-group
+            label(for="signupName") 用户名
+            input#signupName.form-control(name="user[name]", type="text")
+          .form-group
+            label(for="signupPassword") 密码
+            input#signupPassword.form-control(name="user[password]", type="text")
+        .modal-footer
+          button.btn.btn-default(type="button", data-dismiss="modal") 关闭
+          button.btn.btn-success(type="submit") 提交
+#signinModal.modal.fade
+  .modal-dialog
+    .modal-content
+      form(method="POST", action="/user/signin")
+        .modal-header 登录
+        .modal-body
+          .form-group
+            label(for="signinName") 用户名
+            input#signinName.form-control(name="user[name]", type="text")
+          .form-group
+            label(for="signinPassword") 密码
+            input#signinPassword.form-control(name="user[password]", type="text")
+        .modal-footer
+          button.btn.btn-default(type="button", data-dismiss="modal") 关闭
+          button.btn.btn-success(type="submit") 提交

@@ -1,0 +1,41 @@
+extends ../layout
+
+block content
+  .container
+    .row
+      form.form-horizontal(method="post", action="/admin/ti", enctype="multipart/form-data")
+        if ti._id
+          input(type="hidden", name="it[_id]", value=ti._id)
+        .form-group
+          label.col-sm-2.control-label(for="inputIndex") 索引
+          .col-sm-10
+            input#inputIndex.form-control(type="text", name="ti[index]", value=ti.index)
+        .form-group
+          label.col-sm-2.control-label(for="inputCategory") 题目分类
+          .col-sm-10
+            input#inputCategory.form-control(type="text", name="ti[categoryName]" value=ti.categoryName)
+        .form-group
+          label.col-sm-2.control-label 分类选择
+          each cat in categories
+            label.radio-inline
+              if ti.category
+                input(type="radio", name="ti[category]", value=cat._id, checked=cat._id.toString()==ti.category.toString())
+              else
+                input(type="radio", name="ti[category]", value=cat._id)
+              | #{cat.name}
+        .form-group
+          label.col-sm-2.control-label(for="inputTextContent") 文字内容
+          .col-sm-10
+            textarea#inputTextContent.form-control(rows="10",cols="500",name="ti[textContent]", value=ti.textContent)
+        .form-group
+          label.col-sm-2.control-label(for="uploadImageContent") 图片上传
+          .col-sm-10
+            input#uploadImageContent(type="file", name="uploadImageContent")
+        .form-group
+          label.col-sm-2.control-label(for="inputTags") 标签（用空格分开）
+          .col-sm-10
+            textarea#inputTags.form-control(type="text", name="ti[tags]" value=ti.tags)
+        .form-group
+          .col-sm-offset-2.col-sm-10
+          button.btn.btn-default(type="submit") 录入
+  script(src='/build/admin.min.js')
